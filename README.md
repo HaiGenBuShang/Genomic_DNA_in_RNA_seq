@@ -1,1 +1,56 @@
 # Genomic_DNA_in_RNA_seq
+
+#*******************************************************************************
+#*The scripts provided here were used to reproduce all the steps of the research
+#*done by Xiangnan Li, et al. that estimated genomic DNA contamination in RNA-seq
+#*and checked the influence of gDNA contamination on RNA-seq gene expression.
+#*******************************************************************************
+To reproduce all the analyses in the article, you should simply:
+1. cd scripts
+2. excute ./Reads_mapping_and_gDNA_estimate.sh
+After "mapping_to_genome_and_transcripts_assembling/gDNA_finished_or_not.log" was generated with the content "All gDNA_estimate.sh finished!", then
+3. excute ./Impact_of_gDNA_on_expression.sh
+
+Before you run the 2 scripts, make sure that:
+1. download all the data, rename and move the data to the directory "$(pwd)/../../data"
+2. provided the path of HISAT2 indexes to the "ref_dir" variable in the "mapping_to_genome_and_transcripts_assembling/gDNA_estimate.sh" scripts
+3. provided the file path of the gtf file to the "gencode_gtf" variable in the "mapping_to_genome_and_transcripts_assembling/gDNA_estimate.sh" scripts
+4. cd to "scripts" directory
+5. derectly run the script "./Reads_mapping_and_gDNA_estimate.sh"
+6. you may check if commands called by "Reads_mapping_and_gDNA_estimate.sh" finished by checking 
+if "mapping_to_genome_and_transcripts_assembling/gDNA_finished_or_not.log" was generated and with the content "All gDNA_estimate.sh finished!"
+7. edit the first column of "gene_expression_and_impcats_of_gDNA/all_ballgown_dir.txt", this column means the mapping results directory name in the "/../../data/results/mapping/" drectory,
+you should make sure the mapping results directory name correspond to the second column.
+8. after the commands called by "Reads_mapping_and_gDNA_estimate.sh" finished, run the script "./Impact_of_gDNA_on_expression.sh"
+9. all the result files could be found in "../results/"
+
+#***************************************
+##*Estimate gDNA and FPKM caused by gDNA
+##**************************************
+Two scripts were provided to estimate gDNA contamination "Estimate_gDNA_contamination.sh" and FPKM caused by gDNA "FPKM_caused_by_gDNA.sh".
+You can use the two script directly. The two files used in the two scripts could be generated during your reproduction of this study.
+
+#************************
+#*YOU SHOULD NOTE THAT!!!
+#************************
+The whole project contain 48 sequenced samples, however, results from only 32 samples were used in this research.
+To reporduce the results, you should download all the 48 samples, and rename your files to the original file names.
+The original file names could be found in "mapping_to_genome_and_transcripts_assembling/original_fastq_files.txt".
+If you only download the 32 samples, you should add some "fake" samples so that totally 48 samples.
+Why to do this is that in the R code, I select the 32 samples by their file name orders not by their file names and this selection would not influence the results.
+
+Always, rename all your downloaded file names to the original file names.
+
+If you have any problem with these scripts, contact me directly.
+E-mail:
+19110700040@fudan.edu.cn/aa4311313@gmail.com
+
+Xiangnan Li
+
+#***************
+##*Known bugs!!!
+##**************
+1. when you run the script "Reads_mapping_and_gDNA_estimate.sh", sometimes the scripts "intergenic_region/produce_intergenic_region_bed.sh" would occur error which lead to an empty intergenic bed file, 
+thus resulted in wrong counting of reads in intergenic region. If this happens, you should comment the line 23 of the script "mapping_to_genome_and_transcripts_assembling/gDNA_estimate.sh", and 
+rerun "Reads_mapping_and_gDNA_estimate.sh". The rest steps would not consume much time.
+
