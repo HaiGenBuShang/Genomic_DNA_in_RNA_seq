@@ -167,7 +167,7 @@ PA_g_expr <- t(apply(PA_g_expr,1,function(x,y){
 
 PA_g_expr <- log2(PA_g_expr+0.01)
 
-PA_g_expr <- PA_g_expr[,c(16:18,1:6,10:12,7:9,13:15)]
+#PA_g_expr <- PA_g_expr[,c(16:18,1:6,10:12,7:9,13:15)]
 filter_list <- read.table("../../results/expression/PA_pct_only_high_expressed_genes.txt",
                           header = FALSE,sep = "\t",stringsAsFactors = FALSE)[,1]
 
